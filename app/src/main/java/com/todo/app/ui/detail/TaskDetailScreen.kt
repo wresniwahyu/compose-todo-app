@@ -92,7 +92,10 @@ fun TaskDetailScreen(
                 }
             )
             TaskDetail(
-                taskModel = state.taskModel
+                taskModel = state.taskModel,
+                onCheckedChange = { isChecked ->
+                    viewModel.updateChecked(isChecked)
+                }
             )
             Button(
                 modifier = modifier

@@ -16,7 +16,8 @@ fun TodoEntity.toUiModel(): TaskModel {
         id = this.id,
         title = this.title,
         description = this.description,
-        dueDate = this.dueDate.orEmpty()
+        dueDate = this.dueDate,
+        isChecked = this.isChecked
     )
 }
 
@@ -25,6 +26,7 @@ fun TaskModel.toEntity(): TodoEntity {
         id = this.id,
         title = this.title,
         description = this.description,
-        dueDate = this.dueDate
+        dueDate = this.dueDate,
+        isChecked = this.isChecked
     )
 }

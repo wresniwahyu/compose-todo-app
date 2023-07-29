@@ -42,6 +42,13 @@ class TaskScreenViewModel @Inject constructor(
         }
     }
 
+    fun updateChecked(taskModel: TaskModel, isChecked: Boolean) {
+        viewModelScope.launch(dispatcherIO) {
+            val task = taskModel.copy(isChecked = isChecked)
+            repository.updateCheckedById(task)
+        }
+    }
+
     data class State(
         val listTask: List<TaskModel>
     )

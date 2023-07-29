@@ -26,7 +26,8 @@ import com.todo.app.model.TaskModel
 @Composable
 fun TaskDetail(
     modifier: Modifier = Modifier,
-    taskModel: TaskModel = TaskModel()
+    taskModel: TaskModel = TaskModel(),
+    onCheckedChange: (Boolean) -> Unit = {}
 ) {
     Column(
         modifier = modifier.padding(16.dp)
@@ -34,7 +35,7 @@ fun TaskDetail(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Checkbox(checked = false, onCheckedChange = {})
+            Checkbox(checked = taskModel.isChecked, onCheckedChange = onCheckedChange)
             Text(
                 modifier = modifier.fillMaxWidth(),
                 text = taskModel.title

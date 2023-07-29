@@ -32,8 +32,15 @@ class ToDoRepositoryImpl @Inject constructor(
                 id = taskModel.id,
                 title = taskModel.title,
                 description = taskModel.description,
-                dueDate = taskModel.dueDate
+                dueDate = taskModel.dueDate,
+                isChecked = taskModel.isChecked
             )
+        }
+    }
+
+    override suspend fun updateCheckedById(taskModel: TaskModel) {
+        withContext(dispatcherIO) {
+            dao.updateChecked(taskModel.id, taskModel.isChecked)
         }
     }
 

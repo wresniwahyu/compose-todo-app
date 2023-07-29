@@ -17,5 +17,8 @@ data class TodoEntity(
     val description: String,
 
     @ColumnInfo(name = "due_date")
-    val dueDate: String? = null,
+    val dueDate: String,
+
+    @ColumnInfo(name = "is_checked")
+    val isChecked: Boolean = false,
 )

@@ -64,15 +64,15 @@ fun TasksScreen(
 
             if (state.listTask.isNotEmpty()) {
                 LazyColumn(modifier = modifier.weight(1f)) {
-                    items(state.listTask) {
-                        key(it.id) {
+                    items(state.listTask) { taskModel ->
+                        key(taskModel.id) {
                             TaskItem(
-                                taskModel = it,
+                                taskModel = taskModel,
                                 onClick = {
-                                    navigation.navigate("task_detail?id=${it.id}")
+                                    navigation.navigate("task_detail?id=${taskModel.id}")
                                 },
-                                onChecked = {
-
+                                onCheckedChange = { isChecked ->
+                                    viewModel.updateChecked(taskModel, isChecked)
                                 }
                             )
                         }

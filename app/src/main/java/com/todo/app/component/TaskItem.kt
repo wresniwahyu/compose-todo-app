@@ -22,7 +22,7 @@ fun TaskItem(
     modifier: Modifier = Modifier,
     taskModel: TaskModel = TaskModel(),
     onClick: () -> Unit = {},
-    onChecked: (Boolean) -> Unit = {}
+    onCheckedChange: (Boolean) -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -32,7 +32,7 @@ fun TaskItem(
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Checkbox(checked = false, onCheckedChange = onChecked)
+        Checkbox(checked = taskModel.isChecked, onCheckedChange = onCheckedChange)
         Column(
             modifier = modifier.fillMaxWidth()
         ) {

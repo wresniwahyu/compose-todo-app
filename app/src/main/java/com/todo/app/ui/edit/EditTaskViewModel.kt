@@ -49,7 +49,12 @@ class EditTaskViewModel @Inject constructor(
 
     fun updateToDoTask(taskModel: TaskModel) {
         viewModelScope.launch(dispatcherIO) {
-            repository.updateTaskById(taskModel)
+            val task = state.value.taskModel.copy(
+                title = taskModel.title,
+                description = taskModel.description,
+                dueDate = taskModel.dueDate
+            )
+            repository.updateTaskById(task)
             _event.emit(Event.NavigateToHome)
         }
     }
