@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 @Dao
 interface ToDoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertToDoTask()
+    suspend fun insertToDoTask(todoEntity: TodoEntity)
 
     @Query("UPDATE TodoEntity SET title = :title, description = :description, due_date = :dueDate WHERE id = :id")
     suspend fun updateToDoTask(id: String, title: String, description: String, dueDate: String?)
