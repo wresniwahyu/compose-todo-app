@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -60,14 +59,14 @@ fun InputTaskScreen(
     calendar.time = Date()
 
     val eventLaunch by rememberUpdatedState(viewModel::onEvent)
-    var title by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
+    var title by remember { mutableStateOf("title placeholder for test") }
+    var description by remember { mutableStateOf("desc placeholder for test") }
     var dueDate by remember { mutableStateOf("") }
 
     val datePicker = DatePickerDialog(
         context,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            dueDate = "$mDayOfMonth/${mMonth+1}/$mYear"
+            dueDate = "$mDayOfMonth/${mMonth + 1}/$mYear"
         }, year, month, day
     )
 
@@ -77,9 +76,11 @@ fun InputTaskScreen(
                 is InputTaskScreenViewModel.Event.SaveToDoTask -> {
                     viewModel.saveToDoTask(event.taskModel)
                 }
+
                 is InputTaskScreenViewModel.Event.SetDueDate -> {
 
                 }
+
                 is InputTaskScreenViewModel.Event.NavigateToHome -> {
                     navigation.navigate("home") {
                         popUpTo("home") {
@@ -122,7 +123,7 @@ fun InputTaskScreen(
                 title = title,
                 onTitleChange = { title = it },
                 description = description,
-                onDescChange = { description = it},
+                onDescChange = { description = it },
                 onDateClick = {
                     datePicker.show()
                 },
@@ -136,14 +137,16 @@ fun InputTaskScreen(
                         vertical = 4.dp
                     ),
                 onClick = {
-                    eventLaunch.invoke(InputTaskScreenViewModel.Event.SaveToDoTask(
-                        TaskModel(
-                            id = UUID.randomUUID().toString(),
-                            title = title,
-                            description = description,
-                            dueDate = dueDate
+                    eventLaunch.invoke(
+                        InputTaskScreenViewModel.Event.SaveToDoTask(
+                            TaskModel(
+                                id = UUID.randomUUID().toString(),
+                                title = title,
+                                description = description,
+                                dueDate = dueDate
+                            )
                         )
-                    ))
+                    )
                 }
             ) {
                 Text(text = stringResource(R.string.button_save))
