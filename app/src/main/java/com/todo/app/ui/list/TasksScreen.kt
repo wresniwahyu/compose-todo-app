@@ -6,11 +6,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -18,25 +23,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.todo.app.R
+import com.todo.app.component.EmptyState
 import com.todo.app.component.TaskItem
-import com.todo.app.model.TaskModel
 import com.todo.app.provide.LocalNavigationController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: TaskScreenViewModel = hiltViewModel()
 ) {
-
+    val state by viewModel.state.collectAsState()
     val navigation = LocalNavigationController.current
-    // TODO(www): remove this dummy data when actual local db ready
-    val list = listOf(
-        TaskModel("1", "Cuci Mobil", "Cuci mobil pagi hari", "08 08 2023"),
-        TaskModel("2", "Cuci Motor"),
-        TaskModel("3", "Buang Sampah", "Buang sampah makanan dan sampah biasa", "15 08 2023"),
-        TaskModel("4", "Cek Lampu", "Cek lampu dan elektronik lainnya"),
-    )
+
+    LaunchedEffect(Unit) {
+        viewModel.event.collect { event ->
+            when (event) {
+                is TaskScreenViewModel.Event.MoveToInput -> {}
+                is TaskScreenViewModel.Event.SetData -> {}
+            }
+        }
+    }
 
     Box(
         modifier = modifier
@@ -52,21 +61,28 @@ fun TasksScreen(
                     )
                 )
             })
-            LazyColumn(
-                modifier = modifier
-                    .weight(1f),
-            ) {
-                this.items(
-                    count = list.size
-                ) {
-                    TaskItem(
-                        taskModel = list[it],
-                        onClick = {
-                            navigation.navigate("task_detail")
+
+            if (state.listTask.isNotEmpty()) {
+                LazyColumn(modifier = modifier.weight(1f)) {
+                    items(state.listTask) {
+                        key(it.id) {
+                            TaskItem(
+                                taskModel = it,
+                                onClick = {
+                                    navigation.navigate("task_detail")
+                                },
+                                onChecked = {
+
+                                }
+                            )
                         }
-                    )
+                    }
+
                 }
+            } else {
+                EmptyState(modifier = modifier.weight(1f))
             }
+
             Button(
                 modifier = modifier
                     .fillMaxWidth()
