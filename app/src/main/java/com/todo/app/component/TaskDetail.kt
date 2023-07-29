@@ -26,7 +26,6 @@ import com.todo.app.model.TaskModel
 @Composable
 fun TaskDetail(
     modifier: Modifier = Modifier,
-    onDateClick: () -> Unit = {},
     taskModel: TaskModel = TaskModel()
 ) {
     Column(
@@ -42,21 +41,19 @@ fun TaskDetail(
             )
         }
 
-        Spacer(modifier = modifier.height(16.dp))
-        Text(text = stringResource(R.string.description))
         Spacer(modifier = modifier.height(8.dp))
         OutlinedTextField(
             value = taskModel.description,
+            label = {
+                Text(text = stringResource(R.string.description))
+            },
+            readOnly = true,
             onValueChange = {},
             modifier = modifier.fillMaxWidth()
         )
         Spacer(modifier = modifier.height(8.dp))
         Row(
-            modifier = modifier
-                .padding(vertical = 8.dp)
-                .clickable {
-                    onDateClick.invoke()
-                },
+            modifier = modifier.padding(vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(

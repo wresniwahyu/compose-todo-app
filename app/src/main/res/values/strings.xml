@@ -10,4 +10,5 @@
     <string name="button_edit_task">Edit Task</string>
     <string name="button_save">Save</string>
     <string name="task_name">Task Name</string>
+    <string name="delete_task">Delete Task</string>
 </resources>

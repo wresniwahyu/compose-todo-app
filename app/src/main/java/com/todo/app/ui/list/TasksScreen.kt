@@ -69,7 +69,7 @@ fun TasksScreen(
                             TaskItem(
                                 taskModel = it,
                                 onClick = {
-                                    navigation.navigate("task_detail")
+                                    navigation.navigate("task_detail?id=${it.id}")
                                 },
                                 onChecked = {
 

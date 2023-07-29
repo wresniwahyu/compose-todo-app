@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.todo.app.provide.LocalNavigationController
 import com.todo.app.ui.detail.TaskDetailScreen
 import com.todo.app.ui.input.InputTaskScreen
@@ -63,7 +64,18 @@ fun MainScreen() {
     NavHost(navController = navigation, startDestination = "home") {
         composable(route = "splash") { SplashScreen() }
         composable(route = "home") { TasksScreen() }
-        composable(route = "task_detail") { TaskDetailScreen() }
         composable(route = "task_input") { InputTaskScreen() }
+        composable(
+            route = "task_detail?id={id}",
+            arguments = listOf(navArgument("id"){ defaultValue = ""})
+        ) {
+            val id = it.arguments?.getString("id") ?: ""
+            if (id.isBlank()) {
+                navigation.navigateUp()
+                return@composable
+            }
+
+            TaskDetailScreen(id = id)
+        }
     }
 }
