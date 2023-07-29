@@ -48,7 +48,7 @@ fun TaskDetailScreen(
         viewModel.event.collect { event ->
             when (event) {
                 is TaskDetailViewModel.Event.NavigateToEdit -> {
-                    navigation.navigate("task_input")
+                    navigation.navigate("task_edit?id=${event.taskModel.id}")
                 }
 
                 is TaskDetailViewModel.Event.NavigateToHome -> {

@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.todo.app.provide.LocalNavigationController
 import com.todo.app.ui.detail.TaskDetailScreen
+import com.todo.app.ui.edit.EditTaskScreen
 import com.todo.app.ui.input.InputTaskScreen
 import com.todo.app.ui.list.TasksScreen
 import com.todo.app.ui.splash.SplashScreen
@@ -65,6 +66,7 @@ fun MainScreen() {
         composable(route = "splash") { SplashScreen() }
         composable(route = "home") { TasksScreen() }
         composable(route = "task_input") { InputTaskScreen() }
+
         composable(
             route = "task_detail?id={id}",
             arguments = listOf(navArgument("id"){ defaultValue = ""})
@@ -76,6 +78,19 @@ fun MainScreen() {
             }
 
             TaskDetailScreen(id = id)
+        }
+
+        composable(
+            route = "task_edit?id={id}",
+            arguments = listOf(navArgument("id"){ defaultValue = ""})
+        ) {
+            val id = it.arguments?.getString("id") ?: ""
+            if (id.isBlank()) {
+                navigation.navigateUp()
+                return@composable
+            }
+
+            EditTaskScreen(id = id)
         }
     }
 }
