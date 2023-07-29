@@ -9,4 +9,5 @@
     <string name="button_add_new_task">Add New Task</string>
     <string name="button_edit_task">Edit Task</string>
     <string name="button_save">Save</string>
+    <string name="task_name">Task Name</string>
 </resources>
