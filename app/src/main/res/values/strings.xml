@@ -6,6 +6,7 @@
     <string name="title_list_of_tasks">List of Tasks</string>
     <string name="title_task_detail">Task Detail</string>
     <string name="title_task_input">Input Task</string>
+    <string name="title_task_edit">Edit Task</string>
     <string name="button_add_new_task">Add New Task</string>
     <string name="button_edit_task">Edit Task</string>
     <string name="button_save">Save</string>

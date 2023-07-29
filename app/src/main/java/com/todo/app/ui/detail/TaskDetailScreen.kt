@@ -95,6 +95,9 @@ fun TaskDetailScreen(
                 taskModel = state.taskModel,
                 onCheckedChange = { isChecked ->
                     viewModel.updateChecked(isChecked)
+                },
+                onAddDueDateClicked = {
+                    viewModel.editTask(state.taskModel)
                 }
             )
             Button(

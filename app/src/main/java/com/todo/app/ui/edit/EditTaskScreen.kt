@@ -107,7 +107,7 @@ fun EditTaskScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(R.string.title_task_input),
+                        text = stringResource(R.string.title_task_edit),
                         style = TextStyle(
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp

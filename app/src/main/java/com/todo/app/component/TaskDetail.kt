@@ -27,7 +27,8 @@ import com.todo.app.model.TaskModel
 fun TaskDetail(
     modifier: Modifier = Modifier,
     taskModel: TaskModel = TaskModel(),
-    onCheckedChange: (Boolean) -> Unit = {}
+    onCheckedChange: (Boolean) -> Unit = {},
+    onAddDueDateClicked: () -> Unit = {}
 ) {
     Column(
         modifier = modifier.padding(16.dp)
@@ -68,6 +69,11 @@ fun TaskDetail(
             Text(
                 text = taskModel.dueDate.ifEmpty {
                     stringResource(R.string.add_due_date)
+                },
+                modifier = modifier.clickable {
+                    taskModel.dueDate.ifEmpty {
+                        onAddDueDateClicked.invoke()
+                    }
                 }
             )
         }
