@@ -22,14 +22,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.todo.app.R
-import com.todo.app.component.TaskDetail
 import com.todo.app.component.TaskInput
+import com.todo.app.provide.LocalNavigationController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputTaskScreen(
     modifier: Modifier = Modifier
 ) {
+    val navigation = LocalNavigationController.current
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -47,7 +48,11 @@ fun InputTaskScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        // TODO(www): handle back
+                        navigation.navigate("home") {
+                            popUpTo("home") {
+                                inclusive = true
+                            }
+                        }
                     }) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Go Back")
                     }
@@ -57,7 +62,10 @@ fun InputTaskScreen(
             Button(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 4.dp
+                    ),
                 onClick = { /*TODO*/ }
             ) {
                 Text(text = stringResource(R.string.button_save))

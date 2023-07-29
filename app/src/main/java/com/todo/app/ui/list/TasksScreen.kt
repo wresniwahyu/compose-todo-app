@@ -21,12 +21,15 @@ import androidx.compose.ui.unit.sp
 import com.todo.app.R
 import com.todo.app.component.TaskItem
 import com.todo.app.model.TaskModel
+import com.todo.app.provide.LocalNavigationController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksScreen(
     modifier: Modifier = Modifier
 ) {
+
+    val navigation = LocalNavigationController.current
     // TODO(www): remove this dummy data when actual local db ready
     val list = listOf(
         TaskModel("1", "Cuci Mobil", "Cuci mobil pagi hari", "08 08 2023"),
@@ -57,7 +60,10 @@ fun TasksScreen(
                     count = list.size
                 ) {
                     TaskItem(
-                        taskModel = list[it]
+                        taskModel = list[it],
+                        onClick = {
+                            navigation.navigate("task_detail")
+                        }
                     )
                 }
             }
@@ -65,7 +71,9 @@ fun TasksScreen(
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    navigation.navigate("task_input")
+                }
             ) {
                 Text(text = stringResource(R.string.button_add_new_task))
             }

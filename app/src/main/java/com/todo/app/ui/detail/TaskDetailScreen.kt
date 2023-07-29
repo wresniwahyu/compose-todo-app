@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.todo.app.R
 import com.todo.app.component.TaskDetail
 import com.todo.app.model.TaskModel
+import com.todo.app.provide.LocalNavigationController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,6 +32,7 @@ fun TaskDetailScreen(
     modifier: Modifier = Modifier,
     taskModel: TaskModel = TaskModel()
 ) {
+    val navigation = LocalNavigationController.current
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -50,7 +52,11 @@ fun TaskDetailScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        // TODO(www): handle back
+                        navigation.navigate("home") {
+                            popUpTo("home") {
+                                inclusive = true
+                            }
+                        }
                     }) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Go Back")
                     }

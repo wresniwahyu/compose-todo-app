@@ -21,17 +21,18 @@ import com.todo.app.model.TaskModel
 fun TaskItem(
     modifier: Modifier = Modifier,
     taskModel: TaskModel = TaskModel(),
-    onClick: (Boolean) -> Unit = {}
+    onClick: () -> Unit = {},
+    onChecked: (Boolean) -> Unit = {}
 ) {
     Row(
         modifier = modifier
             .padding(4.dp)
             .clickable {
-
+                onClick.invoke()
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Checkbox(checked = true, onCheckedChange = onClick)
+        Checkbox(checked = false, onCheckedChange = onChecked)
         Column(
             modifier = modifier.fillMaxWidth()
         ) {
